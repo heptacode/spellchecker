@@ -23,12 +23,9 @@ app.use(compression());
 app.set("trust proxy", true);
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(express.json({ limit: "50mb" }));
+app.use(express.static("public"));
 
 let tsp: any = moment(new Date()).format("x");
-
-app.get("/", (req, res) => {
-	res.send("/");
-});
 
 app.post("/", (req, res) => {
 	tsp = moment(new Date()).format("x");
