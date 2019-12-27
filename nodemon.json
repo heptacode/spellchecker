@@ -1,5 +1,5 @@
 {
-	"watch": ["public", "src", "package.json", "pm2.json", "tsconfig.json", "webpack.config.js", ".env"],
+	"watch": ["public/*.*", "src", "package.json", "pm2.json", "tsconfig.json", "webpack.config.js", ".env"],
 	"exec": "ts-node src/app.ts",
 	"ext": "ts"
 }
