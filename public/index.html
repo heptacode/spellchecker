@@ -12,8 +12,10 @@
 	</body>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script>
-		let check = () => {
-			document.getElementsByTagName("textarea")[0].value;
+		const check = () => {
+			axios.post("localhost").then(data => {
+				document.getElementsByTagName("textarea")[0].value = data;
+			});
 		};
 	</script>
 </html>
