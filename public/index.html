@@ -1,21 +1,48 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>SpellChecker</title>
-	</head>
-	<body>
-		<textarea cols="30" rows="10"></textarea>
-		<button onclick="check()">검사</button>
-	</body>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script>
-		const check = () => {
-			axios.post("localhost").then(data => {
-				document.getElementsByTagName("textarea")[0].value = data;
-			});
-		};
-	</script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>SpellChecker</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100vw;
+        height: 100vh;
+      }
+      textarea {
+        position: fixed;
+
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="text"></textarea>
+  </body>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    const text = document.getElementById("text");
+    let timer;
+    text.addEventListener("input", e => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(async () => {
+        try {
+          if (text.value.trim()) {
+            let res = await axios.get(`/${text.value}`);
+            text.value = res.data;
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }, 500);
+    });
+  </script>
 </html>
