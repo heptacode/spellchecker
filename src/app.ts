@@ -22,9 +22,9 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.static("public"));
 
-app.get("/:p", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
-    await axios.get(`https://m.search.naver.com/p/csearch/ocontent/util/SpellerProxy?q=${encodeURI(req.params.p)}&color_blindness=0`).then(data => {
+    await axios.get(`https://m.search.naver.com/p/csearch/ocontent/util/SpellerProxy?q=${encodeURI(req.query.q)}&color_blindness=0`).then(data => {
       res.send(data.data.message.result.notag_html);
     });
   } catch (err) {
@@ -32,7 +32,7 @@ app.get("/:p", async (req, res) => {
   }
 });
 
-app.listen(process.env.HTTP_PORT || 3003, () => {
+app.listen(process.env.HTTP_PORT || 80, () => {
   Log.i(`Listening on http://${process.env.HTTP_HOST || "localhost"}:${process.env.HTTP_PORT || 80}`);
 });
 export default app;
