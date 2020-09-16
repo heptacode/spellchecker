@@ -9,6 +9,7 @@ import * as compression from "compression";
 import "dotenv/config";
 
 import Log from "./util/logger";
+import logger from "./util/logger";
 
 const app: express.Application = express();
 
@@ -22,9 +23,9 @@ app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.static("public"));
 
-app.get("/", async (req, res) => {
+app.get("/check", async (req, res) => {
   try {
-    await axios.get(`https://m.search.naver.com/p/csearch/ocontent/util/SpellerProxy?q=${encodeURI(req.query.q)}&color_blindness=0`).then(data => {
+    await axios.get(`https://m.search.naver.com/p/csearch/ocontent/util/SpellerProxy?q=${encodeURI(String(req.query.str))}&color_blindness=0`).then(data => {
       res.send(data.data.message.result.notag_html);
     });
   } catch (err) {

@@ -18,7 +18,6 @@
       }
       textarea {
         position: fixed;
-
         width: 100%;
         height: 100%;
       }
@@ -36,7 +35,7 @@
       timer = setTimeout(async () => {
         try {
           if (text.value.trim()) {
-            let res = await axios.get(`/${text.value}`);
+            let res = await axios.get(`/check?str=${text.value}`);
             text.value = res.data;
           }
         } catch (err) {
