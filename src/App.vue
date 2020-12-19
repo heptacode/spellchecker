@@ -1,16 +1,15 @@
 <template>
-  <textarea v-model="text"></textarea>
+  <textarea v-model="text" @input="onTextChanged"></textarea>
 </template>
 
 <script lang="ts">
-import { Component, Watch, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 @Component
 export default class App extends Vue {
   text: string = "";
   timer: any;
 
-  @Watch("text")
   onTextChanged() {
     if (this.timer) clearTimeout(this.timer);
     this.timer = setTimeout(async () => {
@@ -21,7 +20,7 @@ export default class App extends Vue {
       } catch (err) {
         console.error(err);
       }
-    }, 1000);
+    }, 500);
   }
 }
 </script>
