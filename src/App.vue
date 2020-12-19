@@ -1,0 +1,52 @@
+<template>
+  <textarea v-model="text"></textarea>
+</template>
+
+<script lang="ts">
+import { Component, Watch, Vue } from "vue-property-decorator";
+import axios from "axios";
+@Component
+export default class App extends Vue {
+  text: string = "";
+  timer: any;
+
+  @Watch("text")
+  onTextChanged() {
+    if (this.timer) clearTimeout(this.timer);
+    this.timer = setTimeout(async () => {
+      try {
+        if (this.text.trim()) {
+          this.text = (await axios.post("/api", { str: this.text })).data;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }, 1000);
+  }
+}
+</script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+}
+textarea {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 40px;
+
+  color: #2c3e50;
+}
+</style>
