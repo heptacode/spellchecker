@@ -44,7 +44,7 @@ textarea {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 40px;
+  font-size: 30px;
 
   color: #2c3e50;
 }
