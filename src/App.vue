@@ -3,19 +3,20 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import axios from "axios";
-@Component
+import { Component, Vue } from 'vue-property-decorator';
+import axios from 'axios';
+
+@Component({})
 export default class App extends Vue {
-  text: string = "";
+  text: string = '';
   timer: any;
 
-  onTextChanged() {
+  onTextChanged(event: any) {
     if (this.timer) clearTimeout(this.timer);
     this.timer = setTimeout(async () => {
       try {
         if (this.text.trim()) {
-          this.text = (await axios.post("/api", { str: this.text })).data;
+          this.text = (await axios.post('/api', { str: event.target.value })).data;
         }
       } catch (err) {
         console.error(err);
